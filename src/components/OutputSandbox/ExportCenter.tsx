@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Copy, Download, Check, Sparkles, HelpCircle } from 'lucide-react';
+import { Copy, Download, Check } from 'lucide-react';
 
 interface ExportCenterProps {
   htmlBlock: string;
@@ -15,21 +15,12 @@ export default function ExportCenter({
   cssOnly,
 }: ExportCenterProps) {
   const [copiedMoodle, setCopiedMoodle] = useState(false);
-  const [copiedCss, setCopiedCss] = useState(false);
 
   const handleCopyMoodle = () => {
     if (!htmlBlock) return;
     navigator.clipboard.writeText(htmlBlock).then(() => {
       setCopiedMoodle(true);
       setTimeout(() => setCopiedMoodle(false), 2200);
-    });
-  };
-
-  const handleCopyCss = () => {
-    if (!cssOnly) return;
-    navigator.clipboard.writeText(cssOnly).then(() => {
-      setCopiedCss(true);
-      setTimeout(() => setCopiedCss(false), 2200);
     });
   };
 

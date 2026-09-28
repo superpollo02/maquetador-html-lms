@@ -20,8 +20,6 @@ export interface DesignTokens {
   characteristicElement: CharacteristicElement;
 }
 
-export type AIProvider = 'groq' | 'nvidia' | 'gemini' | 'offline';
-
 export interface ApiSettings {
   geminiKey: string;
   groqKey: string;
@@ -33,15 +31,6 @@ export interface ApiSettings {
   groqVisionModel: string;
   nvidiaModel: string;
   nvidiaVisionModel: string;
-}
-
-export interface GenerationRequest {
-  text: string;
-  tokens: DesignTokens;
-  prefix: string;
-  provider: AIProvider;
-  model?: string;
-  apiKey?: string;
 }
 
 export interface GenerationResult {

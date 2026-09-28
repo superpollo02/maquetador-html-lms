@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { FileText, Upload, Sparkles, Wand2, RefreshCw, FileCode, CheckCircle2, AlertCircle } from 'lucide-react';
+import { FileText, Upload, Sparkles, Wand2, RefreshCw, CheckCircle2, AlertCircle } from 'lucide-react';
 import { SAMPLE_EDUCATIONAL_DOC } from './sampleDoc';
 
 interface DocIngestionProps {

@@ -16,7 +16,6 @@ export default function ColorPaletteEditor({
 }: ColorPaletteEditorProps) {
   // WCAG evaluations
   const contrastBody = checkContrast(tokens.inkPrimary, tokens.surface);
-  const contrastMuted = checkContrast(tokens.inkMuted, tokens.surface);
   const contrastAccent = checkContrast(tokens.accentPrimary, tokens.surface);
 
   const handleAutoFixContrast = () => {

@@ -29,7 +29,6 @@ export function parseAndGenerateOfflineHtml(
   let inTemplateBlock = false;
   let templateMeta: { [key: string]: string } = {};
   let templateBodyLines: string[] = [];
-  let templateTitle = 'Plantilla de Comunicación';
 
   let bannerFound = false;
 
@@ -159,7 +158,7 @@ export function parseAndGenerateOfflineHtml(
   let cardIndex = 1;
 
   // Render sections
-  sections.forEach((sec, sIdx) => {
+  sections.forEach((sec) => {
     html += `  <!-- Sección: ${escapeHtml(sec.title)} -->\n`;
     html += `  <section class="${p}-section">\n`;
     html += `    <div class="${p}-section-header">\n`;

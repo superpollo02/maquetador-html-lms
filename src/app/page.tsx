@@ -17,7 +17,7 @@ import { SAMPLE_EDUCATIONAL_DOC } from '@/components/Step2Content/sampleDoc';
 import { DesignTokens, ApiSettings, ViewportMode, GenerationResult } from '@/lib/types';
 import { parseAndGenerateOfflineHtml } from '@/lib/offline-parser';
 import { generateStandaloneHtml, generateMoodleCss } from '@/lib/moodle-templates';
-import { ArrowRight, ArrowLeft, Sparkles, Layers } from 'lucide-react';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
 
 const DEFAULT_SETTINGS: ApiSettings = {
   geminiKey: '',

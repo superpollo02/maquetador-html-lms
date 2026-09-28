@@ -1,6 +1,6 @@
 // WCAG 2.1 Contrast Calculation Utilities
 
-export function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
+function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
   let cleaned = hex.replace(/^#/, '');
   if (cleaned.length === 3) {
     cleaned = cleaned.split('').map(c => c + c).join('');
@@ -15,7 +15,7 @@ export function hexToRgb(hex: string): { r: number; g: number; b: number } | nul
   };
 }
 
-export function getRelativeLuminance(rgb: { r: number; g: number; b: number }): number {
+function getRelativeLuminance(rgb: { r: number; g: number; b: number }): number {
   const [rs, gs, bs] = [rgb.r, rgb.g, rgb.b].map(val => {
     const s = val / 255;
     return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
