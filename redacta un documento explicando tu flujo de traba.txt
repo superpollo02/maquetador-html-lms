@@ -1,0 +1,87 @@
+﻿Especificación Técnica y Flujo de Trabajo: Portabilidad de Gem a Webapp en Google Antigravity
+Proyecto: Maquetador Editorial HTML para LMS (Moodle Ready)
+Objetivo: Transición funcional desde el motor conversacional (Gem) hacia una arquitectura de aplicación web desacoplada, interactiva y responsiva ejecutada en el ecosistema Google Antigravity.
+1. Visión General de la Arquitectura
+El propósito es trasladar la lógica de análisis visual, extracción de tokens y maquetación estructurada a una interfaz visual de doble panel (Workspace & Live Preview) optimizada para entornos educativos y de administración pública.
+
+
+
+
+
+
++-----------------------------------------------------------------------------------+
+|                        FRONTEND RESPONSIVO (Antigravity UI)                       |
+|  +----------------------------------+  +---------------------------------------+  |
+|  |     PANEL DE ENTRADA / CONTROL   |  |        PANEL DE SALIDA / PREVIEW      |  |
+|  |  [1. Ingesta de Imagen/Tokens]   |  |  - Vista interactiva (Desktop/Mobile) |  |
+|  |  [2. Ingesta de Texto Completo]  |  |  - Visor de código limpio (HTML/CSS)  |  |
+|  |  [3. Configuración de Prefijos]  |  |  - Botones de acción directa          |  |
+|  +----------------------------------+  +---------------------------------------+  |
++-----------------------------------------|-----------------------------------------+
+                                         |
+                       PROCESAMIENTO ASÍNCRONO (Gem Core)
+                       - Extracción cromática (Tokens WCAG)
+                       - Mapeo estructural sin síntesis
+                       - Envoltura modular Moodle-Safe
+
+2. Flujo Operativo en la Webapp
+El flujo de trabajo automatiza las dos etapas operativas del Gem original, añadiendo validaciones de contraste y formateo seguro en tiempo real:
+Etapa 1: Ingesta Visual y Definición del Sistema de Diseño
+1. Carga del recurso gráfico: La interfaz admite la carga de capturas o plantillas de referencia (PNG/JPG/WEBP).
+2. Generación automática de Design Tokens:
+   * La API subyacente extrae la paleta funcional: --color-bg, --color-surface, --color-surface-subtle, --color-ink-primary, --color-ink-muted, --color-accent-primary, --color-accent-secondary.
+   * Asigna pares tipográficos estándar de Google Fonts (títulos geométricos/display y cuerpo de lectura sans-serif de alto rendimiento).
+   * Define radios de curvatura (--radius-sm, --radius-md, --radius-lg) y sombras táctiles de profundidad.
+3. Detección del Elemento Característico:
+   * Identifica y categoriza el ancla visual (tarjetas con bordes orbitales, rieles secuenciales con nodos numerados, pastillas semánticas de estado o acentos de jerarquía lateral).
+4. Validación de Accesibilidad Previa:
+   * El sistema calcula las tasas de contraste bajo estándar WCAG 2.1 (mínimo 4.5:1 para texto normal, 3:1 para encabezados) antes de autorizar la aplicación de tokens al contenedor.
+Etapa 2: Ingesta Textual, Parseo Semántico y Renderizado
+1. Carga de Documentación: Área de texto o carga de archivo plano/markdown. El motor asume la regla obligatoria de no resumir ni truncar, procesando el 100% de la extensión entregada.
+2. Clasificación Automática de Bloques:
+   * Encabezados institucionales: Banners de apertura con jerarquía normativa o pedagógica.
+   * Glosarios y conceptos clave: Grillas responsivas automáticas con botones integrados para copiado rápido de definición.
+   * Plantillas y comunicaciones: Cajas modulares con bloques meta (Destinatario, Asunto, Canal) y botón de captura al portapapeles.
+   * Procedimientos e instructivos: Rieles secuenciales (step-by-step) con conectores CSS puros.
+3. Incrustación Segura (Moodle Hardening):
+   * Inyección de prefijo de aislamiento CSS (por defecto .esalud-* o personalizable en la UI) para neutralizar colisiones con temas Boost, Classic o personalizaciones institucionales.
+   * Vectorización inline: Conversión de iconos a `
+
+
+SVG
+(function() {
+// Lógica encapsulada e inmune a variables globales de Moodle
+document.querySelectorAll('.esalud-copy-btn').forEach(button => {
+button.addEventListener('click', function() {
+const targetId = this.getAttribute('data-target');
+const targetElement = document.getElementById(targetId);
+if (!targetElement) return;
+
+
+
+
+
+
+    const textToCopy = targetElement.innerText || targetElement.textContent;
+   navigator.clipboard.writeText(textToCopy.trim()).then(() => {
+     const originalText = this.innerText;
+     this.innerText = '¡Copiado!';
+     setTimeout(() => { this.innerText = originalText; }, 2000);
+   });
+ });
+});
+
+})();
+
+
+
+
+
+
+---
+
+## 5. Próximos Pasos para la Implementación en Google Antigravity
+
+1. **Definir el esquema JSON de interoperabilidad:** Establecer la estructura de intercambio de datos (tokens visuales + bloques semánticos de texto) entre el analizador de Gemini y el motor de renderizado web.
+2. **Montar el arquetipo del Sandbox:** Configurar el iframe interactivo con inyección de CSS base simulando el layout de un curso Moodle 4.x.
+3. **Programar los triggers del portapapeles:** Asegurar compatibilidad estricta con las restricciones de sandbox de navegadores modernos sin violar políticas de seguridad de origen.

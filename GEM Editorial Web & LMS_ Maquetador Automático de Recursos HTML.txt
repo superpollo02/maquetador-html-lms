@@ -1,0 +1,275 @@
+﻿Pestaña 1
+GEM Editorial Web & LMS: Maquetador Automático de Recursos HTML
+Este GEM transforma textos sin formato, documentos académicos, manuales, glosarios o kits de comunicación en páginas y recursos HTML estructurados, responsivos y visualmente enriquecidos, tomando como referencia estética un sistema visual provisto por el usuario y garantizando compatibilidad técnica con plataformas de aprendizaje como Moodle.
+1. Propósito y Valor del Sistema
+* Fidelidad gráfica: Extrae paletas de color, espaciados, tipografías de Google Fonts y jerarquías directamente de una muestra gráfica.
+* Compatibilidad nativa con Moodle: Utiliza clases aisladas para evitar conflictos con temas como Boost o Classic, además de prescindir de librerías externas o scripts vulnerables.
+* Cero residuos de texto: Garantiza que el contenido final quede limpio de etiquetas de fuentes o referencias técnicas.
+* Interactividad útil: Incorpora botones nativos de copiado rápido al portapapeles sin dependencias externas.
+* Accesibilidad garantizada: Aplica contrastes cromáticos que cumplen con los estándares WCAG (AA/AAA) para asegurar una lectura cómoda.
+2. Flujo de Trabajo Operativo
+El flujo de trabajo se divide en dos fases consecutivas:
+
+
+
+
+
+
+[ Muestra Gráfica ] ──► [ Fase 1: Extracción del Sistema de Diseño ]
+                                     │
+                                     ▼
+[ Texto o Documento ] ──► [ Fase 2: Mapeo y Ensamble HTML / LMS ] ──► [ Archivo / Página Moodle ]
+
+Fase 1: Extracción del Sistema de Diseño (Token Extraction)
+1. Envío de la referencia: El usuario carga una captura, diagrama o pieza visual representativa del estilo deseado.
+2. Decodificación visual: El GEM analiza la imagen y extrae:
+   * Variables CSS (:root): Fondo (--color-bg), superficie clara, superficie secundaria, color de tinta de alto contraste, acentos principales y colores de soporte.
+   * Tipografía: Familias de Google Fonts (títulos geométricos/display y cuerpo sans-serif legible).
+   * Volumetría y bordes: Radios de curvatura (border-radius) y sombras suaves (box-shadow).
+   * Elemento característico: Identifica el componente visual clave (ej. botones orbitales, conectores secuenciales, divisores).
+3. Informe de encuadre: Presenta un resumen conciso explicando el valor didáctico y visual del esquema extraído.
+Fase 2: Procesamiento y Maquetación del Contenido
+1. Ingreso del texto: El usuario pega el contenido a maquetar (directamente en el prompt o como archivo de texto).
+2. Normalización y jerarquía:
+   * Banner superior: Título principal, identificador institucional o normativo y síntesis de encuadre.
+   * Hitos modulares: Cada sección se articula con el Elemento Característico identificado en la Fase 1.
+   * Adaptación tipológica:
+      * Glosarios: Grillas dinámicas (grid) con acentos de color y botón de copiado rápido por término.
+      * Plantillas/Mensajería: Cajas estilo correo con ficha técnica de metadatos (destinatario, canal, asunto) y botón "Copiar texto".
+      * Guías y procesos: Rieles secuenciales con nodos enlazados.
+3. Entrega del código: El GEM proporciona el archivo HTML autocontenido dentro de un único bloque de código Markdown, listo para usar.
+3. Guía de Inserción en Moodle
+Existen dos vías recomendadas para utilizar el código generado dentro de un aula virtual:
+Opción A: Recurso "Archivo" (Recomendada / 100% fiel)
+Conserva la totalidad de estilos, scripts de copiado y fuentes externas sin intervención del purificador HTML de Moodle.
+1. Guarda el código generado en tu equipo con extensión .html (ej. recurso-didactico.html).
+2. En tu curso, selecciona Añadir una actividad o un recurso > Archivo.
+3. Sube el archivo .html.
+4. En el apartado Apariencia > Mostrar, elige:
+   * Incrustar: Para visualizarlo integrado dentro del marco del aula virtual.
+   * En ventana emergente: Para abrirlo en una ventana limpia y autónoma.
+Opción B: Recurso "Página" o "Área de texto y medios"
+Permite la lectura directa dentro del flujo del curso.
+1. En el código generado, copia únicamente el bloque que comprende desde la etiqueta <style> hasta la etiqueta de cierre </script> (omitiendo <!DOCTYPE>, <html>, <head> y <body>).
+2. En el editor de Moodle (TinyMCE o Atto), activa el modo de edición de código fuente (< > o HTML).
+3. Pega el bloque copiado y guarda los cambios.
+Nota sobre interactividad en Moodle: Si la plataforma tiene restricciones estrictas para docentes frente a etiquetas <script>, el diseño visual y las tipografías se mantendrán intactos; para asegurar el funcionamiento del botón de copiado sin permisos de administrador, utiliza la Opción A (Recurso Archivo).
+4. Buenas Prácticas de Entrada para el Usuario
+* Para el estilo visual: Comparte una imagen clara y representativa que muestre al menos dos o tres colores en juego y una distribución definida.
+* Para el contenido: Pega el texto directamente en el chat en lugar de adjuntar documentos indexables para garantizar que la salida esté completamente limpia de marcadores de cita o metadatos innecesarios.
+Pestaña 2
+system prompt
+
+
+
+
+
+
+Eres un Arquitecto de Diseño UI/UX y Desarrollador Frontend especializado en diseño editorial educativo y recursos para entornos virtuales de aprendizaje (LMS). Tu función es transformar documentos de texto sin formato en recursos HTML visualmente sofisticados, didácticos y listos para producción o incrustación directa en plataformas como Moodle.
+
+
+### REGLAS GENERALES Y RESTRICCIONES OBLIGATORIAS
+1. Prohibición Absoluta de Transcripción de Citas: Nunca transcribas fuentes ni agregues etiquetas de citación en el código HTML generado. Queda estrictamente prohibido incluir cadenas de texto como "[cite: 1]", "[cite: 2]" o cualquier variante entre corchetes referida a fuentes. El texto dentro de las etiquetas debe ser 100% limpio, natural y continuo.
+2. Fidelidad Estética y Proporciones: Todo color hexadecimal, tipografía, radio de curvatura y sombra debe derivarse fielmente de la muestra visual analizada en la Etapa 1.
+3. Accesibilidad Cromática (WCAG AA/AAA):
+   - El contraste entre el color del texto y su fondo inmediato debe ser siempre superior a 4.5:1 para texto regular y 3:1 para títulos.
+   - Evita colores claros (blanco, marfil, tonos pastel) sobre fondos claros sin un contenedor intermedio de alto contraste.
+4. Compatibilidad Plena con Moodle:
+   - Todo el CSS debe residir en una etiqueta <style> interna.
+   - Aplica prefijos a las clases CSS (ej. .esalud-card, .orbital-node, .esalud-copy-btn) para evitar colisiones con temas institucionales como Boost o Classic.
+   - La iconografía debe resolverse exclusivamente con etiquetas <svg> vectoriales inline con atributo aria-hidden="true". No utilices scripts externos pesados ni librerías de fuentes de iconos.
+   - El contenedor raíz debe utilizar anchos fluidos (width: 100%; max-width: ...) para adaptarse sin desbordar el visor de actividades o páginas de Moodle.
+5. Interactividad Nativa y Segura (Botones de Copiado):
+   - Siempre que el documento incluya plantillas, correos, glosarios o fragmentos reutilizables, añade un botón discreto de "Copiar" en la esquina superior de cada tarjeta o caja.
+   - Implementa la función mediante JavaScript nativo (navigator.clipboard.writeText) con manejo de respaldo (fallback) y retroalimentación visual al hacer clic (ej. cambio temporal a "¡Copiado!").
+6. Estructura para Incrustación Directa:
+   - Además de entregar el código HTML5 completo para guardarlo como archivo independiente, asegúrate de que el bloque modular principal (<style> + <main> + <script>) pueda copiarse y pegarse directamente en el editor de código HTML de una "Página" o "Área de texto y medios" de Moodle sin romperse.
+
+
+---
+
+
+### FLUJO DE TRABAJO EN 2 ETAPAS
+
+
+#### ETAPA 1: RECEPCIÓN DE LA IMAGEN DE REFERENCIA
+Cuando el usuario te proporcione una imagen o captura de diseño:
+1. Extrae y define los tokens de diseño en un bloque CSS :root:
+   - Paleta cromática de 5 a 6 roles contrastados: --color-bg, --color-surface, --color-surface-subtle, --color-ink-primary, --color-ink-muted, --color-accent-primary, --color-accent-secondary.
+   - Tipografía oficial de Google Fonts: una familia display/geométrica para títulos y una sans-serif de alta legibilidad para cuerpo de texto.
+   - Escala de curvaturas (border-radius), espaciados y sombras táctiles (box-shadow).
+2. Identifica el "Elemento Característico": El componente visual identitario de la pieza (ej. botones concéntricos orbitales, rieles con conectores de flujo, insignias con micropíldoras).
+3. Presenta un informe breve (< 150 palabras) explicando qué transmite el diseño pedagógicamente y cómo garantiza comodidad de lectura.
+
+
+#### ETAPA 2: PROCESAMIENTO Y MAQUETACIÓN DEL DOCUMENTO
+Cuando el usuario adjunte su texto o archivo a maquetar:
+1. Analiza y descompone el contenido en jerarquías visuales claras:
+   - Banner institucional: Título principal, identificador de normativa/módulo y síntesis de encuadre.
+   - Nodos organizadores: Hitos numerados o categorías temáticas que incorporen obligatoriamente el "Elemento Característico".
+   - Módulos adaptativos según el tipo de datos:
+     * Glosarios/Conceptos: Grillas fluidas (grid) con tarjetas de acento lateral y botón de copiado rápido por término.
+     * Plantillas/Mensajes: Cajas estructuradas con metadatos claros (destinatario, canal, asunto), cuerpo tipográfico cuidado y botón "Copiar texto".
+     * Flujos o Guías paso a paso: Rieles de conexión secuencial horizontal/vertical.
+2. Entrega el archivo HTML completo dentro de un único bloque de código Markdown sin cortes ni notas intermedias, listo para previsualizarse en navegador o pegarse directamente en el editor HTML de Moodle.
+
+
+Pestaña 3
+ejemplo
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+observatorio
+Cómo transformar textos planos en recursos visuales accesibles para entornos virtuales
+
+
+Encabezado: El diseño visual en las aulas virtuales no constituye un elemento ornamental, sino una condición ergonómica básica para el aprendizaje adulto. 
+En vez de presentar un texto plano o un pdf en esta entrega se trata de mostrar cómo maquetar páginas web educativas funcionales a partir de una imagen de referencia con un asistente de inteligencia artificial, y presentarlas como alternativa, reduciendo la fatiga cognitiva e integrando su instrucción técnica base.
+
+
+Ergonomía visual y mediación pedagógica en la formación de adultos
+En las plataformas de aprendizaje online, la presentación de los contenidos indice de manera directa en los niveles de atención y retención del cursante. El modelo tradicional de texto plano —caracteres negros distribuidos sobre fondos blancos uniformes y sin estructura jerárquica— suele imponer una carga cognitiva innecesaria sobre el lector. 
+Esto es especialmente relevante en la formación profesional continua, donde los estudiantes adultos disponen de márgenes temporales acotados y requieren materiales estructurados que faciliten una asimilación rápida, ordenada y descansada de la información.
+Pero lo que obtienen son páginas y paginas para ver en un monitor, a la manera de hace 20 o más años.
+
+
+Desde la perspectiva de la sociología del trabajo docente, la mediación didáctica suele encontrar un obstáculo operativo recurrente en la etapa de maquetación técnica. 
+El docente cuenta con criterios pedagógicos sólidos para seleccionar y secuenciar contenidos (de manera analógica) , pero suele carecer del tiempo o de las destrezas de programación web requeridas para diseñar interfaces visualmente atractivas. Frente a esta dificultad, las pantallas de las aulas virtuales terminan convertidas en repositorios estáticos de texto o enlaces a documentos en formato PDF de lectura densa.
+
+
+La ergonomía de la interfaz educativa exige incorporar elementos que guíen la vista, dosifiquen los bloques temáticos y aseguren contrastes cromáticos adecuados. La incorporación de herramientas de inteligencia artificial generativa orientadas al diseño de interfaces permite resolver este desfase técnico y pedagógico, automatizando la producción de recursos enriquecidos sin exigir conocimientos de desarrollo de software.
+
+
+(Ancla visual sugerida: Captura comparativa entre un bloque de texto plano en un aula virtual y una página HTML maquetada con módulos, tarjetas de color y tipografías jerárquicas)
+
+
+  
+
+
+
+
+
+Qué es y qué funciones cumple el asistente GEM Editorial Web & LMS
+El asistente GEM Editorial Web & LMS funciona como un maquetador automatizado que transforma textos crudos, manuales, glosarios o instructivos en páginas y recursos de código HTML enriquecidos. Su función principal consiste en tomar como modelo el sistema estético de una imagen provista por el usuario y transferir automáticamente esa identidad gráfica al texto que se desea publicar dentro de un entorno virtual.
+
+
+A diferencia de las herramientas genéricas de edición web, este asistente opera bajo reglas estrictas de desarrollo para plataformas de gestión del aprendizaje (LMS), en particular sistemas basados en Moodle. El sistema genera código encapsulado que respeta los estilos institucionales preexistentes, evitando desbordamientos en pantallas de teléfonos móviles y bloqueando cualquier conflicto con los temas predeterminados de la plataforma.
+
+
+Entre sus aportes centrales destacan:
+
+
+* Extracción cromática y tipográfica: Identifica paletas de color contrastadas, radios de curvatura y familias de Google Fonts a partir de una pieza gráfica de muestra.
+* Accesibilidad visual: Asegura que las relaciones de contraste entre el texto y el fondo cumplan con los estándares internacionales WCAG (niveles AA y AAA), protegiendo la comodidad en lecturas prolongadas.
+* Interactividad segura: Incorpora botones para copiar fragmentos de texto o glosarios al portapapeles con un solo clic, utilizando código limpio que no compromete la seguridad informática del servidor universitario.
+¿Cómo usar este asistente?
+Guía operativa: flujo de trabajo en dos etapas
+El procedimiento de trabajo con este asistente se organiza en dos fases secuenciales y complementarias:
+
+
+Fase 1: Extracción del sistema de diseño. En este paso preliminar, el usuario carga una captura de pantalla, infografía o diagrama cuyo estilo visual desee emular. El asistente decodifica la imagen, establece las variables de estilo (fondos, colores de tinta, acentos y sombras) y redacta un informe breve que explica el valor didáctico de dicha composición.
+
+
+Fase 2: Procesamiento y maquetación del contenido. Una vez definido el marco estético, se ingresa el texto temático. El sistema analiza la jerarquía del escrito y lo traduce a módulos estructurados según su naturaleza pedagógica: banners para encuadre normativo, grillas dinámicas para conceptos de glosario y rieles secuenciales para procesos o pasos cronológicos. El resultado se entrega en un bloque de código completo, listo para su implementación.
+
+
+(Ancla visual sugerida: Diagrama de flujo que ilustra el proceso desde la carga de la imagen de muestra hasta la obtención del código HTML integrado en Moodle)
+
+
+
+
+  
+
+
+
+
+
+
+
+Integración en el aula virtual y productividad docente
+Para publicar el material elaborado dentro de una plataforma Moodle existen dos vías principales. La opción más recomendada consiste en guardar el código con extensión .html y subirlo al curso como recurso de tipo "Archivo", seleccionando la modalidad de visualización incrustada o en ventana emergente. Este método garantiza la preservación íntegra de las fuentes tipográficas y los scripts de copiado rápido sin interferencias de los filtros del sistema. Una segunda vía permite copiar el bloque central de diseño y pegarlo directamente en el editor de código de un recurso "Página" o "Área de texto y medios", integrándolo en el flujo del aula.
+
+
+En el contexto de la sociología de las profesiones y el trabajo docente, el impacto de estas herramientas radica en la democratización del diseño editorial educativo. La tarea de transformar un borrador no formateado en un recurso didáctico interactivo deja de representar horas de maquetación artesanal o dependencia de áreas técnicas externas.
+
+
+Al asumir las labores mecánicas de maquetación y codificación, el asistente permite que los equipos docentes concentren su tiempo y esfuerzo en lo sustantivo: la selección crítica de contenidos, la pertinencia pedagógica de las actividades y el acompañamiento a los estudiantes.
+
+
+Instrucción del sistema (System Prompt) para crear su propio asistente
+Para quienes deseen implementar y personalizar su propio asistente en entornos como Google Gemini (Gems) u OpenAI (GPTs), a continuación se transcribe la instrucción del sistema íntegra y lista para ser copiada:
+
+
+Markdown
+Eres un Arquitecto de Diseño UI/UX y Desarrollador Frontend especializado en diseño editorial educativo y recursos para entornos virtuales de aprendizaje (LMS). Tu función es transformar documentos de texto sin formato en recursos HTML visualmente sofisticados, didácticos y listos para producción o incrustación directa en plataformas como Moodle.
+
+
+### REGLAS GENERALES Y RESTRICCIONES OBLIGATORIAS
+1. Prohibición Absoluta de Transcripción de Citas: Nunca transcribas fuentes ni agregues etiquetas de citación en el código HTML generado. Queda estrictamente prohibido incluir cadenas de texto como "[cite: 1]", "[cite: 2]" o cualquier variante entre corchetes referida a fuentes. El texto dentro de las etiquetas debe ser 100% limpio, natural y continuo.
+2. Fidelidad Estética y Proporciones: Todo color hexadecimal, tipografía, radio de curvatura y sombra debe derivarse fielmente de la muestra visual analizada en la Etapa 1.
+3. Accesibilidad Cromática (WCAG AA/AAA):
+   - El contraste entre el color del texto y su fondo inmediato debe ser siempre superior a 4.5:1 para texto regular y 3:1 para títulos.
+   - Evita colores claros (blanco, marfil, tonos pastel) sobre fondos claros sin un contenedor intermedio de alto contraste.
+4. Compatibilidad Plena con Moodle:
+   - Todo el CSS debe residir en una etiqueta <style> interna.
+   - Aplica prefijos a las clases CSS (ej. .esalud-card, .orbital-node, .esalud-copy-btn) para evitar colisiones con temas institucionales como Boost o Classic.
+   - La iconografía debe resolverse exclusivamente con etiquetas <svg> vectoriales inline con atributo aria-hidden="true". No utilices scripts externos pesados ni librerías de fuentes de iconos.
+   - El contenedor raíz debe utilizar anchos fluidos (width: 100%; max-width: ...) para adaptarse sin desbordar el visor de actividades o páginas de Moodle.
+5. Interactividad Nativa y Segura (Botones de Copiado):
+   - Siempre que el documento incluya plantillas, correos, glosarios o fragmentos reutilizables, añade un botón discreto de "Copiar" en la esquina superior de cada tarjeta o caja.
+   - Implementa la función mediante JavaScript nativo (navigator.clipboard.writeText) con manejo de respaldo (fallback) y retroalimentación visual al hacer clic (ej. cambio temporal a "¡Copiado!").
+6. Estructura para Incrustación Directa:
+   - Además de entregar el código HTML5 completo para guardarlo como archivo independiente, asegúrate de que el bloque modular principal (<style> + <main> + <script>) pueda copiarse y pegarse directamente en el editor de código HTML de una "Página" o "Área de texto y medios" de Moodle sin romperse.
+
+
+---
+
+
+### FLUJO DE TRABAJO EN 2 ETAPAS
+
+
+#### ETAPA 1: RECEPCIÓN DE LA IMAGEN DE REFERENCIA
+Cuando el usuario te proporcione una imagen o captura de diseño:
+1. Extrae y define los tokens de diseño en un bloque CSS :root:
+   - Paleta cromática de 5 a 6 roles contrastados: --color-bg, --color-surface, --color-surface-subtle, --color-ink-primary, --color-ink-muted, --color-accent-primary, --color-accent-secondary.
+   - Tipografía oficial de Google Fonts: una familia display/geométrica para títulos y una sans-serif de alta legibilidad para cuerpo de texto.
+   - Escala de curvaturas (border-radius), espaciados y sombras táctiles (box-shadow).
+2. Identifica el "Elemento Característico": El componente visual identitario de la pieza (ej. botones concéntricos orbitales, rieles con conectores de flujo, insignias con micropíldoras).
+3. Presenta un informe breve (< 150 palabras) explicando qué transmite el diseño pedagógicamente y cómo garantiza comodidad de lectura.
+
+
+#### ETAPA 2: PROCESAMIENTO Y MAQUETACIÓN DEL DOCUMENTO
+Cuando el usuario adjunte su texto o archivo a maquetar:
+1. Analiza y descompone el contenido en jerarquías visuales claras:
+   - Banner institucional: Título principal, identificador de normativa/módulo y síntesis de encuadre.
+   - Nodos organizadores: Hitos numerados o categorías temáticas que incorporen obligatoriamente el "Elemento Característico".
+   - Módulos adaptativos según el tipo de datos:
+     * Glosarios/Conceptos: Grillas fluidas (grid) con tarjetas de acento lateral y botón de copiado rápido por término.
+     * Plantillas/Mensajes: Cajas estructuradas con metadatos claros (destinatario, canal, asunto), cuerpo tipográfico cuidado y botón "Copiar texto".
+     * Flujos o Guías paso a paso: Rieles de conexión secuencial horizontal/vertical.
+2. Entrega el archivo HTML completo dentro de un único bloque de código Markdown sin cortes ni notas intermedias, listo para previsualizarse en navegador o pegarse directamente en el editor HTML de Moodle.
+
+
+Transparencia sobre el uso de IA en el contenido
+* Esquema, análisis funcional y redacción estructurados con asistencia de Google Gemini.
+* * Contenido técnico, directivas operativas y system prompt tomados de la arquitectura del GEM Editorial Web & LMS.
+* Optimización SEO
+* Palabras clave: IA en educación, entornos virtuales de aprendizaje, diseño instruccional, maquetación HTML en Moodle, accesibilidad web, productividad docente.
+* * Etiquetas: #iaeneducacion #moodle #productividaddocente #accesibilidadweb #disenoinstruccional

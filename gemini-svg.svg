@@ -1,0 +1,18 @@
+<svg aria-hidden="true">` autónomos, suprimiendo dependencias de FontAwesome o scripts pesados.
+   - Generación de scripts vanilla para copiado con fallback seguro (`navigator.clipboard` / `document.execCommand`).
+
+---
+
+## 3. Especificación de Componentes de la Interfaz (Antigravity)
+
+| Módulo UI | Función | Características Clave |
+|---|---|---|
+| **Token Studio** | Editor y visualizador de variables CSS | Selectores de color nativos, auditor de contraste en tiempo real y selector de fuentes compatibles. |
+| **Doc Ingestion Editor** | Entrada de datos sin formato | Detección automática de listas, tablas, citas normativas y bloques de código. |
+| **Canvas Sandbox** | Previsualizador iframe aislado | Conmutador de viewport (Moodle Desktop, Tablet LMS, App Móvil Moodle). |
+| **Export Engine** | Centro de descarga e integración | Botón "Copiar bloque Moodle" (`
+
+<!-- ESTRUCTURA SEMÁNTICA DEL CONTENIDO -->
+<main class="esalud-container">
+  <!-- Banner / Header Institucional -->
+  
