@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Copy, Download, Check } from 'lucide-react';
+import { IconButton } from '@/components/common/IconButton';
+import { useCopyFeedback } from '@/hooks/useCopyFeedback';
 
 interface ExportCenterProps {
   htmlBlock: string;
@@ -14,14 +16,11 @@ export default function ExportCenter({
   fullHtml,
   cssOnly,
 }: ExportCenterProps) {
-  const [copiedMoodle, setCopiedMoodle] = useState(false);
+  const { copied: copiedMoodle, copy: copyMoodle } = useCopyFeedback();
 
   const handleCopyMoodle = () => {
     if (!htmlBlock) return;
-    navigator.clipboard.writeText(htmlBlock).then(() => {
-      setCopiedMoodle(true);
-      setTimeout(() => setCopiedMoodle(false), 2200);
-    });
+    copyMoodle(htmlBlock);
   };
 
   const handleDownloadHtml = () => {
