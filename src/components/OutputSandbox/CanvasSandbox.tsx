@@ -6,6 +6,7 @@ import {
   Monitor, Tablet, Smartphone, ExternalLink,
   Edit3, Check, Sparkles, Undo2, Redo2, Trash2, AlertTriangle, MousePointer2, X
 } from 'lucide-react';
+import { sanitizeLmsHtml } from '@/lib/sanitize';
 
 interface CanvasSandboxProps {
   htmlContent: string;
@@ -137,8 +138,9 @@ export default function CanvasSandbox({
       ? `${styleHtml}\n\n${clone.outerHTML}\n\n${scriptHtml}`.trim()
       : clone.outerHTML;
 
-    onUpdateHtmlContent(newBlock);
-    if (recordHistory) pushHistory(newBlock);
+    const safeBlock = sanitizeLmsHtml(newBlock);
+    onUpdateHtmlContent(safeBlock);
+    if (recordHistory) pushHistory(safeBlock);
   }, [onUpdateHtmlContent, pushHistory]);
 
   // ── Escribir iframe ─────────────────────────────────────────────────────
@@ -202,7 +204,7 @@ export default function CanvasSandbox({
           </style>
         </head>
         <body>
-          ${htmlContent || '<div style="padding:40px;text-align:center;color:#94a3b8;font-family:sans-serif;">Esperando generación del recurso...</div>'}
+          ${sanitizeLmsHtml(htmlContent) || '<div style="padding:40px;text-align:center;color:#94a3b8;font-family:sans-serif;">Esperando generación del recurso...</div>'}
         </body>
       </html>
     `);

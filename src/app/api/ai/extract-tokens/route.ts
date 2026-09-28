@@ -12,6 +12,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No se proporcionó imagen para análisis' }, { status: 400 });
     }
 
+    if (image.length > 5 * 1024 * 1024) { // Aprox 5MB base64
+      return NextResponse.json({ error: 'La imagen es demasiado grande. Por favor, sube una imagen de menor peso (máx 5MB).' }, { status: 413 });
+    }
+
     if (!apiKey) {
       return NextResponse.json(
         { error: `Debes configurar la API Key de ${provider || 'tu proveedor'} en los ajustes.` },

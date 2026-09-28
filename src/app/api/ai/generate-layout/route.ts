@@ -14,6 +14,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'El contenido de texto no puede estar vacío.' }, { status: 400 });
     }
 
+    if (text.length > 30000) {
+      return NextResponse.json({ error: 'El texto excede el límite máximo permitido (30,000 caracteres) para evitar la sobrecarga del servidor.' }, { status: 413 });
+    }
+
     if (!tokens) {
       return NextResponse.json({ error: 'Se requieren los tokens de diseño.' }, { status: 400 });
     }
